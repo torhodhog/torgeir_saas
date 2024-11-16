@@ -1,5 +1,7 @@
 "use client"
 
+// synchronize auth status to database
+
 import { Heading } from "../../components/Heading"
 import { LoadingSpinner } from "../../components/loading-spinner"
 import { client } from "../../lib/client"
@@ -7,24 +9,14 @@ import { useQuery } from "@tanstack/react-query"
 import { LucideProps } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { useAuth } from "@clerk/nextjs"
 
 const Page = () => {
   const router = useRouter()
-  const { isSignedIn } = useAuth()
 
-  useEffect(() => {
-    if (isSignedIn) {
-      router.push("/dashboard")
-    }
-  }, [isSignedIn, router])
-
-  const { data, error } = useQuery({
+  const { data } = useQuery({
     queryFn: async () => {
       const res = await client.auth.getDatabaseSyncStatus.$get()
-      const json = await res.json()
-      console.log('API response:', json)
-      return json
+      return await res.json()
     },
     queryKey: ["get-database-sync-status"],
     refetchInterval: (query) => {
@@ -33,13 +25,8 @@ const Page = () => {
   })
 
   useEffect(() => {
-    if (error) {
-      console.error('Error fetching sync status:', error)
-    }
-    if (data?.isSynced) {
-      router.push("/dashboard")
-    }
-  }, [data, error, router])
+    if (data?.isSynced) router.push("/dashboard")
+  }, [data, router])
 
   return (
     <div className="flex w-full flex-1 items-center justify-center px-4">
@@ -156,3 +143,4 @@ const BackgroundPattern = (props: LucideProps) => {
 }
 
 export default Page
+ 

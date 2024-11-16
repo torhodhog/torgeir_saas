@@ -1,6 +1,7 @@
 import { db } from "@/db"
 import { currentUser } from "@clerk/nextjs/server"
 import { HTTPException } from "hono/http-exception"
+
 import { router } from "../__internals/router"
 import { publicProcedure } from "../procedures"
 
@@ -8,19 +9,24 @@ export const dynamic = "force-dynamic"
 
 export const authRouter = router({
   getDatabaseSyncStatus: publicProcedure.query(async ({ c, ctx }) => {
+    console.log('Fetching current user...')
     const auth = await currentUser()
 
     if (!auth) {
+      console.log('No authenticated user found')
       return c.json({ isSynced: false })
     }
+
+    console.log('Authenticated user:', auth)
 
     const user = await db.user.findFirst({
       where: { externalId: auth.id },
     })
 
-    console.log('USER IN DB:', user);
+    console.log('USER IN DB:', user)
 
     if (!user) {
+      console.log('Creating new user in DB')
       await db.user.create({
         data: {
           quotaLimit: 100,
@@ -28,8 +34,10 @@ export const authRouter = router({
           email: auth.emailAddresses[0].emailAddress,
         },
       })
+      console.log('New user created')
+      return c.json({ isSynced: true })
     }
 
     return c.json({ isSynced: true })
-  }),
+  })
 })
