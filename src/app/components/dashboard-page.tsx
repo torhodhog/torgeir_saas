@@ -23,8 +23,14 @@ export const DashboardPage = ({title, children, hideBackBtton, cta}: DashboardPa
                </Button>)}
 
                <Heading>{title}</Heading>
+               {cta ? <div>{cta}</div> : null}
          </div>
       </div>
+
+               <div className="flex-1 p-6 sm:p-8 flex flex-col overflow-y-auto">
+                  {children}
+               </div>
+
    </section>
  )
 }

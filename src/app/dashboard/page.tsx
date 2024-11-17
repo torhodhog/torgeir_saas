@@ -2,6 +2,8 @@
 import { db } from "@/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { DashboardPage } from "../components/dashboard-page";
+import { DashboardPageContent } from "./dasboard-page-content";
 
 
 const Page = async () => {
@@ -19,7 +21,9 @@ if(!user){
    redirect("/sign-in")
 }
 
-   return <p>DASHBOARD</p>
+   return <DashboardPage title="Dashboard">
+      <DashboardPageContent />
+   </DashboardPage>
 }
 
 export default Page;
