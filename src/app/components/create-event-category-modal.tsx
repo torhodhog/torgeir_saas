@@ -50,14 +50,7 @@ const EMOJI_OPTIONS = [
   { emoji: "🔔", label: "Notification" },
 ]
 
-interface CreateEventCategoryModel extends PropsWithChildren {
-  containerClassName?: string
-}
-
-export const CreateEventCategoryModal = ({
-  children,
-  containerClassName,
-}: CreateEventCategoryModel) => {
+export const CreateEventCategoryModal = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState(false)
   const queryClient = useQueryClient()
 
@@ -68,7 +61,7 @@ export const CreateEventCategoryModal = ({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-event-categories"] })
       setIsOpen(false)
-    },
+    }
   })
 
   const {
@@ -90,9 +83,7 @@ export const CreateEventCategoryModal = ({
 
   return (
     <>
-      <div className={containerClassName} onClick={() => setIsOpen(true)}>
-        {children}
-      </div>
+      <div onClick={() => setIsOpen(true)}>{children}</div>
 
       <Modal
         className="max-w-xl p-8"
@@ -104,7 +95,8 @@ export const CreateEventCategoryModal = ({
             <h2 className="text-lg/7 font-medium tracking-tight text-gray-950">
               New Event Category
             </h2>
-            <p className="text-sm/6 text-gray-600">
+            <p className="sext.sm/6 text-gray-600">
+              {" "}
               Create a new category to organize your events.
             </p>
           </div>
@@ -119,14 +111,11 @@ export const CreateEventCategoryModal = ({
                 placeholder="e.g. user-signup"
                 className="w-full"
               />
-              {errors.name ? (
-                <p className="mt-1 text-sm text-red-500">
-                  {errors.name.message}
-                </p>
-              ) : null}
+              {errors.name && (
+                <p className="text-red-600">{errors.name.message}</p>
+              )}
             </div>
-
-            <div>
+            <div className="">
               <Label>Color</Label>
               <div className="flex flex-wrap gap-3">
                 {COLOR_OPTIONS.map((premadeColor) => (
@@ -144,15 +133,13 @@ export const CreateEventCategoryModal = ({
                   ></button>
                 ))}
               </div>
-
               {errors.color ? (
                 <p className="mt-1 text-sm text-red-500">
                   {errors.color.message}
                 </p>
               ) : null}
             </div>
-
-            <div>
+            <div className="">
               <Label>Emoji</Label>
               <div className="flex flex-wrap gap-3">
                 {EMOJI_OPTIONS.map(({ emoji, label }) => (
@@ -171,7 +158,6 @@ export const CreateEventCategoryModal = ({
                   </button>
                 ))}
               </div>
-
               {errors.emoji ? (
                 <p className="mt-1 text-sm text-red-500">
                   {errors.emoji.message}
@@ -188,9 +174,7 @@ export const CreateEventCategoryModal = ({
             >
               Cancel
             </Button>
-            <Button disabled={isPending} type="submit">
-              {isPending ? "Creating..." : "Create Category"}{" "}
-            </Button>
+            <Button disabled={isPending} type="submit">{isPending ? "Creating" : "Create Category"} {""}</Button>
           </div>
         </form>
       </Modal>
