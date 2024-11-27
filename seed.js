@@ -1,13 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient(); // Sørg for at denne linjen er definert før du bruker prisma
 
 async function main() {
   try {
+    console.log('Connecting to database...');
     const newUser = await prisma.user.create({
       data: {
-        externalId: 'test-id',
-        email: 'test@example.com',
+        externalId: 'test-id-1',
+        email: 'kristin@example.com',
         quotaLimit: 100,
       },
     });
@@ -15,6 +16,7 @@ async function main() {
   } catch (error) {
     console.error('Error creating user:', error);
   } finally {
+    console.log('Disconnecting from database...');
     await prisma.$disconnect();
   }
 }

@@ -3,7 +3,7 @@ import { client } from "@/app/lib/client"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 export const EmptyCategoryState = ({categoryName,} : {categoryName: string}) => {
@@ -78,7 +78,7 @@ export const EmptyCategoryState = ({categoryName,} : {categoryName: string}) => 
          </div>
             <p className="text-sm/6 text-gray-600 mt-2">
             Need help? Check out our {" "} <a href="#" className="text-blue-600 hover:underline">documentation</a>
-            {" "} or {" "}<a href="#" className="text-blue-600 hover:underline">contact support</a></p>
+            {" "} or {" "} <a href="#" className="text-blue-600 hover:underline">contact support</a>.</p>
          </div>
       </Card>
    )

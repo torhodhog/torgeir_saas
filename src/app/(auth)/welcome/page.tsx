@@ -13,16 +13,18 @@ import { useEffect } from "react"
 const Page = () => {
   const router = useRouter()
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryFn: async () => {
-      const res = await client.auth.getDatabaseSyncStatus.$get()
-      return await res.json()
+      const res = await client.auth.getDatabaseSyncStatus.$get();
+      console.log("API response raw:", res);
+      const json = await res.json();
+      console.log("API response JSON:", json);
+      return json;
     },
     queryKey: ["get-database-sync-status"],
-    refetchInterval: (query) => {
-      return query.state.data?.isSynced ? false : 1000
-    },
-  })
+    refetchInterval: (query) => (query.state.data?.isSynced ? false : 1000),
+  });
+  
 
   useEffect(() => {
     if (data?.isSynced) router.push("/dashboard")
