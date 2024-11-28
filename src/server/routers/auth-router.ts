@@ -1,6 +1,7 @@
+// FILE: src/server/routers/auth-router.ts
+
 import { db } from "@/db"
 import { currentUser } from "@clerk/nextjs/server"
-import { HTTPException } from "hono/http-exception"
 import { router } from "../__internals/router"
 import { publicProcedure } from "../procedures"
 
@@ -33,5 +34,3 @@ export const authRouter = router({
     return c.json({ isSynced: true })
   }),
 })
-
-// route.ts
