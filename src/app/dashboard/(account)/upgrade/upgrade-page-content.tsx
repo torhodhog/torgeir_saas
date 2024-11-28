@@ -85,9 +85,9 @@ export const UpdatePageContent = ({ plan }: { plan: Plan }) => {
         ) : (
           <span className="animate-pulse w-8 h-4 bg-gray-200"> </span>)}
             {plan !== "PRO" ? 
-              <p onClick={() => createCheckoutSession()} className="inline underline text-brand-600">
-                or upgrade now to increase your limit &rarr;
-              </p>
+              <span onClick={() => createCheckoutSession()} className=" cursor-pointer inline underline text-brand-600">
+                {" "}or upgrade now to increase your limit &rarr;
+              </span>
              : null}
          
         

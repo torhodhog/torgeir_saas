@@ -6,8 +6,16 @@ import { DashboardPageContent } from "./dasboard-page-content";
 import { CreateEventCategoryModal } from "../components/create-event-category-modal";
 import { Button } from "../components/ui/button";
 import { PlusIcon } from "lucide-react";
+import { createCheckoutSession } from "../lib/stripe";
+import { PaymentSuccessModal } from "../components/payment-success-modal";
 
-const Page = async () => {
+interface PageProps {
+  searchParams: {
+    [key: string]: string | string [] | undefined;
+  }
+}
+
+const Page = async ({searchParams}: PageProps) => {
   console.log("Fetching authenticated user...");
   const auth = await currentUser();
 
@@ -32,9 +40,24 @@ const Page = async () => {
       return null;
     }
 
-    console.log("User found in Prisma:", user);
+    const intent = searchParams.intent 
+
+    if(intent === "upgrade") {
+      const session = await createCheckoutSession({
+        userEmail: user.email,
+        userId: user.id,
+      })
+
+      if (session.url) redirect(session.url)
+    }
+
+    const success = searchParams.success 
+
 
     return (
+      <>
+      {success ? <PaymentSuccessModal /> : null}
+
       <DashboardPage
         cta={
           <CreateEventCategoryModal>
@@ -47,7 +70,7 @@ const Page = async () => {
         title="Dashboard"
       >
         <DashboardPageContent />
-      </DashboardPage>
+      </DashboardPage></>
     );
   } catch (error) {
     console.error("Error fetching user from Prisma:", error);
