@@ -44,13 +44,16 @@ const Page = () => {
               </Heading>
             </div>
             <p className="text-base/7 text-gray-700 max-w-prose text-center text-pretty mb-6">
-  <span className="font-semibold text-brand-700">
-    Protect your reputation, monitor leaks, and take control of your online presence.
-  </span>
-  Get instant alerts when your name, brand, or sensitive data appears online –  
-  <span className="font-semibold text-brand-800">from Google, social media, Jodel, and all over the web.</span>
-</p>
-
+              <span className="font-semibold text-brand-700">
+                Protect your reputation, monitor leaks, and take control of your
+                online presence.
+              </span>
+              Get instant alerts when your name, brand, or sensitive data
+              appears online –
+              <span className="font-semibold text-brand-800">
+                from Google, social media, Jodel, and all over the web.
+              </span>
+            </p>
 
             <ul className="space-y-2 text-base/7 text-gray-600 text-left flex flex-col items-start mb-6">
               {[
@@ -71,7 +74,7 @@ const Page = () => {
                 className="relative z-10 h-14 w-full text-base shadow-lg transition-shadow duration-300 hover:shadow-xl"
               >
                 {" "}
-                Start for free today{" "}
+                Sign Up for free today{" "}
               </ShinyButton>
             </div>
           </div>
@@ -100,36 +103,36 @@ const Page = () => {
                     }}
                   />
 
-<DiscordMessage
-  avatarSrc="/brand-asset-profile-picture.png"
-  avatarAlt="Clean Sheet Bot"
-  username="Clean Sheet"
-  timestamp="Today at 12:20PM"
-  badgeText="Alert"
-  badgeColor="#ff4444"
-  title="🚨 Mention Detected"
-  content={{
-    platform: "Jodel",
-    content: "Anonymous: '[Client Name] er involvert i en skandale!'",
-    link: "https://jodel.com/thread123",
-  }}
-/>
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="Clean Sheet Bot"
+                    username="Clean Sheet"
+                    timestamp="Today at 12:20PM"
+                    badgeText="Alert"
+                    badgeColor="#ff4444"
+                    title="🚨 Mention Detected"
+                    content={{
+                      platform: "Jodel",
+                      content:
+                        "Anonymous: '[Client Name] er involvert i en skandale!'",
+                      link: "https://jodel.com/thread123",
+                    }}
+                  />
 
-<DiscordMessage
-  avatarSrc="/brand-asset-profile-picture.png"
-  avatarAlt="Clean Sheet Bot"
-  username="Clean Sheet"
-  timestamp="Today at 12:21PM"
-  badgeText="Resolved"
-  badgeColor="#43b581"
-  title="✅ Content Removed"
-  content={{
-    platform: "Dark Web",
-    action: "Manually requested takedown",
-    status: "Success",
-  }}
-/>
-
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="Clean Sheet Bot"
+                    username="Clean Sheet"
+                    timestamp="Today at 12:21PM"
+                    badgeText="Resolved"
+                    badgeColor="#43b581"
+                    title="✅ Content Removed"
+                    content={{
+                      platform: "Dark Web",
+                      action: "Manually requested takedown",
+                      status: "Success",
+                    }}
+                  />
                 </AnimatedList>
               </MockDiscordUi>
             </div>
@@ -153,11 +156,12 @@ const Page = () => {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
                 <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                   <p className="mt-2 text-lg/7 font-medium tracking-tight text-brand-950 max-lg:text-center">
-                    Real-time notifications
+                    Instant Alerts, Total Control
                   </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                    Get notified about critical events the moment they happen,
-                    no matter if you&apos;re at home or on the go.
+                  <p className="mt-2 max-w-lg text-sm/6 text-gray-700 max-lg:text-center">
+                    Get notified the moment your name, brand, or sensitive data
+                    appears online. Stay ahead of rumors, leaks, and unwanted
+                    exposure – anytime, anywhere.
                   </p>
                 </div>
 
@@ -180,11 +184,12 @@ const Page = () => {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
                   <p className="mt-2 text-lg/7 font-medium tracking-tight text-brand-950 max-lg:text-center">
-                    Track Any Event
+                    Monitor Any Mention
                   </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                    From new user signups to successful payments, PingPanda
-                    notifies you for all critical events in your Saas.
+                  <p className="mt-2 max-w-lg text-sm/6 text-gray-700 max-lg:text-center">
+                    Stay informed whenever your name, brand, or sensitive data
+                    appears online. From social media to the dark web, Clean
+                    Sheet keeps you in control.
                   </p>
                 </div>
 
@@ -207,11 +212,12 @@ const Page = () => {
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
                     <p className="mt-2 text-lg/7 font-medium tracking-tight text-brand-950 max-lg:text-center">
-                      Track Any Properties
+                      Monitor Custom Keywords
                     </p>
-                    <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                      Add any custom data like to an event, such as a user
-                      email, a purchase amount or an exceeded quota.
+                    <p className="mt-2 max-w-lg text-sm/6 text-gray-700 max-lg:text-center">
+                      Track any name, brand, or keyword you want. Customize your
+                      alerts to monitor specific mentions, leaks, or emerging
+                      trends before they spread.
                     </p>
                   </div>
 
@@ -236,11 +242,12 @@ const Page = () => {
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                 <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                   <p className="mt-2 text-lg/7 font-medium tracking-tight text-brand-950 max-lg:text-center">
-                    Easy Integration
+                    Seamless Integration
                   </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
-                    Connect PingPanda with your existing workflows in minutes
-                    and call our intuitive logging API from any language.
+                  <p className="mt-2 max-w-lg text-sm/6 text-gray-700 max-lg:text-center">
+                    Connect Clean Sheet to your existing tools effortlessly. Get
+                    real-time alerts via Discord, email, or API—ensuring you're
+                    always informed.
                   </p>
                 </div>
 
@@ -249,7 +256,7 @@ const Page = () => {
                     <div className="flex bg-gray-800/40 ring-1 ring-white/5">
                       <div className="-mb-px flex text-sm/6 font-medium text-gray-400">
                         <div className="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
-                          pingpanda.js
+                          cleansheet.js
                         </div>
                       </div>
                     </div>
@@ -304,8 +311,8 @@ const Page = () => {
               </div>
 
               <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-tight text-brand-950 text-center lg:text-left text-pretty">
-                PingPanda har been a game-changer for me. Ive seen sales pop uo
-                in real-time and I can now make decisions faster than ever.
+                Clean Sheet har been a game-changer for me. Ive seen sales pop
+                uo in real-time and I can now make decisions faster than ever.
               </p>
 
               <div className=" flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
@@ -366,7 +373,7 @@ const Page = () => {
             href="/sign-up"
             className="relative z-10 h-14 w-full max-w-xs text-base shadow-lg transition-shadow duration-300 hover:shadow-xl"
           >
-            Start for free today
+            Sign Up for free today
           </ShinyButton>
         </MaxWidthWrapper>
       </section>

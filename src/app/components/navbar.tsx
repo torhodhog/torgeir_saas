@@ -1,20 +1,21 @@
-import { SignOutButton } from "@clerk/nextjs"
-import { currentUser } from "@clerk/nextjs/server"
+"use client"
+
+import { useUser, SignOutButton } from "@clerk/nextjs"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 import { MaxWidthWrapper } from "./MaxWithWrapper"
 import { Button, buttonVariants } from "./ui/button"
 
-export const Navbar = async () => {
-  const user = await currentUser()
+export const Navbar = () => {
+  const { user } = useUser() // Bruker client-side Clerk hook
 
   return (
     <nav className="sticky z-[100] h-16 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex z-40 font-semibold">
-            Clean<span className="text-brand-700">sheet</span>
+            Clean<span className="text-brand-700">Sheet</span>
           </Link>
 
           <div className="h-full flex items-center space-x-4">

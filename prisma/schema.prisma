@@ -11,18 +11,17 @@ datasource db {
 model User {
   id              String          @id @default(cuid())
   externalId      String?         @unique
-  quotaLimit      Int
-  plan            Plan            @default(FREE)
   email           String          @unique
   apiKey          String          @default(cuid())
   discordId       String?
+  plan            Plan            @default(BASIC)
+  quotaLimit      Int
+  monitoredSites  String[]        // F.eks. ["facebook", "twitter", "darkweb"]
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   events          Event[]
-  EventCategories EventCategory[]
-  Quota           Quota?
-
-  @@index([email, apiKey])
+  eventCategories EventCategory[]
+  quota           Quota?
 }
 
 model EventCategory {
@@ -46,10 +45,12 @@ model Event {
   name             String
   fields           Json
   deliveryStatus   DeliveryStatus @default(PENDING)
+  site             String         // Hvilken nettside funnet er på
+  eventType        EventType
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   eventCategoryId  String?
-  EventCategory    EventCategory? @relation(fields: [eventCategoryId], references: [id])
+  eventCategory    EventCategory? @relation(fields: [eventCategoryId], references: [id])
   user             User           @relation(fields: [userId], references: [id])
 
   @@index([createdAt])
@@ -66,12 +67,18 @@ model Quota {
 }
 
 enum Plan {
-  FREE
-  PRO
+  BASIC       // Billigste: Overvåker sosiale medier
+  PREMIUM     // Medium: Overvåker sosiale medier + nettaviser
+  ELITE       // Dyreste: Overvåker hele nettet inkl. dark web
 }
 
 enum DeliveryStatus {
   PENDING
   DELIVERED
   FAILED
+}
+
+enum EventType {
+  DISCOVERY   // Når noe uønsket blir funnet
+  DELETION    // Når noe er slettet
 }
