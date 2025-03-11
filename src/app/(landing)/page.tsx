@@ -345,8 +345,7 @@ const Page = () => {
               </div>
 
               <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-tight text-brand-950 text-center lg:text-left text-pretty">
-                PingPanda works great. Been baying off for our SaaS. Nice to
-                follow how were doing it day by day.
+                CleanSheet has been a game-changer for me. 
               </p>
 
               <div className=" flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
