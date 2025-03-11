@@ -15,24 +15,24 @@ const config: Config = {
   		},
   		colors: {
   			brand: {
-  				'25': '#F8F9FD',
-  				'50': '#F0F4FA',
-  				'100': '#E1E9F6',
-  				'200': '#C3D3ED',
-  				'300': '#A5BDE4',
-  				'400': '#87A7DB',
-  				'500': '#6991D2',
-  				'600': '#4B76C9',
-  				'700': '#3659B1',
-  				'800': '#284189',
-  				'900': '#1B2A61',
-  				'950': '#111A3E'
+  				'25': '#FCF7E6', // Lys gull
+  				'50': '#FAF3D9', // Lysere gull
+  				'100': '#F5E8B8', 
+  				'200': '#F0DB8C',
+  				'300': '#EBCF61',
+  				'400': '#E7C437',
+  				'500': '#D4AF37', // Standard gull
+  				'600': '#B8860B', // Dypere gull
+  				'700': '#A37400', 
+  				'800': '#805A00', 
+  				'900': '#5C3F00', 
+  				'950': '#3D2900'
   			},
-			'discord-background': '#36393f',
-			'discord-brand-color'	: '#5865f2',
-  			'discord-gray': '#36393f',
-  			'discord-text': '#dcddde',
-  			'discord-timestamp': '#72767d',
+			'discord-background': '#1E1E1E', // Mørkere for kontrast
+			'discord-brand-color': '#D4AF37', // Gull
+  			'discord-gray': '#1E1E1E',
+  			'discord-text': '#F1C40F', // Lysere gull for tekst
+  			'discord-timestamp': '#B8860B', // Dypere gull
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -44,11 +44,11 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: '#D4AF37', // Gull som primærfarge
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
+  				DEFAULT: '#B8860B', // Dypere gull som sekundærfarge
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
@@ -56,22 +56,22 @@ const config: Config = {
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
+  				DEFAULT: '#E7C437', // Lysere gull som aksentfarge
   				foreground: 'hsl(var(--accent-foreground))'
   			},
   			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
+  				DEFAULT: '#E63946', // Rødt for destruktive handlinger
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
+  			ring: '#D4AF37', // Gull-glød rundt fokuserte elementer
   			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
+  				'1': '#D4AF37',
+  				'2': '#B8860B',
+  				'3': '#E7C437',
+  				'4': '#F0DB8C',
+  				'5': '#FAF3D9'
   			}
   		},
   		borderRadius: {

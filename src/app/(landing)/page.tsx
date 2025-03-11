@@ -34,27 +34,29 @@ const Page = () => {
           <div className="relative mx-auto text-center flex flex-col items-center">
             <div className="mb-6">
               <Heading>
-                <span>Real Time Saas Insights,</span>
+                <span>
+                  Exclusive Reputation Protection & Content Monitoring,
+                </span>
                 <br />
                 <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">
-                  Delivered to Your Discord
+                  Delivered Instantly
                 </span>
               </Heading>
             </div>
-            <p className="text-base/7 text-gray-600 max-w-prose text-center text-pretty mb-6">
-              PingPanda is the easiest way to monitor your Saas. Get instant
-              notifications for{" "}
-              <span className="font-semibold text-gray-700">
-                sales, new users, or any other event{" "}
-              </span>
-              sent directly to your Discord.
-            </p>
+            <p className="text-base/7 text-gray-700 max-w-prose text-center text-pretty mb-6">
+  <span className="font-semibold text-brand-700">
+    Protect your reputation, monitor leaks, and take control of your online presence.
+  </span>
+  Get instant alerts when your name, brand, or sensitive data appears online –  
+  <span className="font-semibold text-brand-800">from Google, social media, Jodel, and all over the web.</span>
+</p>
+
 
             <ul className="space-y-2 text-base/7 text-gray-600 text-left flex flex-col items-start mb-6">
               {[
-                "Real-time Discord alerts for critical events",
-                "Buy once, use forever.",
-                "Track sales, new users, or any other event",
+                "Instant notifications when your name or brand appears online",
+                "Premium subscription, fully automated & exclusive",
+                "Monitor leaks, rumors, and unauthorized content across the web",
               ].map((item, index) => (
                 <li key={index} className="flex gap-1.5 items-center text-left">
                   <Check className="size-5 shrink-0 text-brand-700" />
@@ -85,45 +87,49 @@ const Page = () => {
                 <AnimatedList>
                   <DiscordMessage
                     avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda Avatar"
-                    username="PingPanda"
+                    avatarAlt="Clean Sheet Bot"
+                    username="Clean Sheet"
                     timestamp="Today at 12:20PM"
-                    badgeText="SignUp"
-                    badgeColor="#43b581"
-                    title="👤 New User signed up"
+                    badgeText="Alert"
+                    badgeColor="#ff4444"
+                    title="🚨 Mention Detected"
                     content={{
-                      name: "Torgeir Hodne-Høgheim",
-                      email: "hogheim@gmail.com",
+                      platform: "Twitter",
+                      content: "Breaking: [Client Name] accused of...",
+                      link: "https://twitter.com/post123",
                     }}
                   />
 
-                  <DiscordMessage
-                    avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda Avatar"
-                    username="PingPanda"
-                    timestamp="Today at 12:20PM"
-                    badgeText="Revenue"
-                    badgeColor="#faa61a"
-                    title="💰 Payment received"
-                    content={{
-                      amount: "$99.99",
-                      email: "kristinhodne@gmail.com",
-                      plan: "PRO",
-                    }}
-                  />
-                  <DiscordMessage
-                    avatarSrc="/brand-asset-profile-picture.png"
-                    avatarAlt="PingPanda Avatar"
-                    username="PingPanda"
-                    timestamp="Today at 12:20PM"
-                    badgeText="Revenue"
-                    badgeColor="#5865f2"
-                    title="🚀 Revenue Milestone Achieved"
-                    content={{
-                      recurringRevenue: "$1000 USD",
-                      growth: "10%",
-                    }}
-                  />
+<DiscordMessage
+  avatarSrc="/brand-asset-profile-picture.png"
+  avatarAlt="Clean Sheet Bot"
+  username="Clean Sheet"
+  timestamp="Today at 12:20PM"
+  badgeText="Alert"
+  badgeColor="#ff4444"
+  title="🚨 Mention Detected"
+  content={{
+    platform: "Jodel",
+    content: "Anonymous: '[Client Name] er involvert i en skandale!'",
+    link: "https://jodel.com/thread123",
+  }}
+/>
+
+<DiscordMessage
+  avatarSrc="/brand-asset-profile-picture.png"
+  avatarAlt="Clean Sheet Bot"
+  username="Clean Sheet"
+  timestamp="Today at 12:21PM"
+  badgeText="Resolved"
+  badgeColor="#43b581"
+  title="✅ Content Removed"
+  content={{
+    platform: "Dark Web",
+    action: "Manually requested takedown",
+    status: "Success",
+  }}
+/>
+
                 </AnimatedList>
               </MockDiscordUi>
             </div>
