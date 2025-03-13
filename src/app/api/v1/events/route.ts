@@ -106,7 +106,7 @@ export const POST = async (req: NextRequest) => {
         fields: validationResult.fields || {},
         eventCategoryId: category.id,
         site: "defaultSite", // Add appropriate value for site
-        eventType: "VALID_EVENT_TYPE", // Replace with an actual valid EventType value
+        eventType: "DELETION", // Replace with an actual valid EventType value
       },
     })
 
