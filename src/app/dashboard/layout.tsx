@@ -7,7 +7,6 @@ import { UserButton } from "@clerk/nextjs"
 import { Gem, Home, Key, LucideIcon, Menu, Settings, X } from "lucide-react"
 import Link from "next/link"
 import { PropsWithChildren, useState } from "react"
-import { Drawer } from "vaul"
 
 interface SidebarItem {
   href: string
@@ -45,12 +44,12 @@ const SIDEBAR_ITEMS: SidebarCategory[] = [
 const Sidebar = ({ onClose }: { onClose?: () => void }) => {
   return (
     <div className="space-y-4 md:space-y-6 relative z-20 flex flex-col h-full">
-      {/* logo */}
+      {/* Logo */}
       <Link href="/" className="hidden sm:block text-lg/7 font-semibold text-brand-900 hover:underline">
         Clean<span className="text-brand-700">Sheet</span>
       </Link>
 
-      {/* navigation items */}
+      {/* Navigation items */}
       <div className="flex-grow">
         <ul>
           {SIDEBAR_ITEMS.map(({ category, items }) => (
@@ -79,17 +78,10 @@ const Sidebar = ({ onClose }: { onClose?: () => void }) => {
         </ul>
       </div>
 
+      {/* User Button */}
       <div className="flex flex-col">
         <hr className="my-4 md:my-6 w-full h-px bg-gray-100" />
-
-        <UserButton
-          showName
-          appearance={{
-            elements: {
-              userButtonBox: "flex-row-reverse",
-            },
-          }}
-        />
+        <UserButton showName />
       </div>
     </div>
   )
@@ -100,51 +92,39 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="relative h-screen flex flex-col md:flex-row bg-white overflow-hidden">
-      {/* sidebar for desktop */}
+      {/* Sidebar for desktop */}
       <div className="hidden md:block w-64 lg:w-80 border-r border-gray-100 p-6 h-full text-brand-900 relative z-10">
         <Sidebar />
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* mobile header */}
+        {/* Mobile header */}
         <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200">
           <Link href="/" className="text-lg/7 font-semibold text-brand-900 hover:underline">
             Clean<span className="text-brand-700">Sheet</span>
           </Link>
-          <button
-            onClick={() => setIsDrawerOpen(true)}
-            className="text-gray-500 hover:text-gray-600"
-          >
+          <button onClick={() => setIsDrawerOpen(true)} className="text-gray-500 hover:text-gray-600">
             <Menu className="size-6" />
           </button>
         </div>
 
-        {/* main content area */}
+        {/* Main content area */}
         <div className="flex-1 overflow-y-auto bg-gray-50 shadow-md p-4 md:p-6 relative z-10">
           <div className="relative min-h-full flex flex-col">
-            <div className="h-full flex flex-col flex-1 space-y-4">
-              {children}
-            </div>
+            <div className="h-full flex flex-col flex-1 space-y-4">{children}</div>
           </div>
         </div>
 
-        <Modal
-          className="p-4"
-          showModal={isDrawerOpen}
-          setShowModal={setIsDrawerOpen}
-        >
+        {/* Mobile Sidebar Modal */}
+        <Modal className="p-4" showModal={isDrawerOpen} setShowModal={setIsDrawerOpen}>
           <div className="flex justify-between items-center mb-4">
             <Link href="/" className="text-lg/7 font-semibold text-brand-900 hover:underline">
               Clean<span className="text-brand-700">Sheet</span>
             </Link>
-            <button
-              aria-label="Close modal"
-              onClick={() => setIsDrawerOpen(false)}
-            >
+            <button aria-label="Close modal" onClick={() => setIsDrawerOpen(false)}>
               <X className="size-6" />
             </button>
           </div>
-
           <Sidebar />
         </Modal>
       </div>

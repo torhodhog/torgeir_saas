@@ -31,7 +31,7 @@ export const POST = async (req: NextRequest) => {
 
     const user = await db.user.findUnique({
       where: { externalId: apiKey },
-      include: { EventCategories: true },
+      include: { eventCategories: true },
     })
 
     if (!user) {
@@ -55,7 +55,7 @@ export const POST = async (req: NextRequest) => {
       },
     })
 
-    const quotaLimit = user.plan === "FREE" ? FREE_QUOTA.maxEventsPerMonth : PRO_QUOTA.maxEventsPerMonth
+    const quotaLimit = user.plan === "BASIC" ? FREE_QUOTA.maxEventsPerMonth : PRO_QUOTA.maxEventsPerMonth
 
     if (quota && quota.count >= quotaLimit) {
       return NextResponse.json({ message: "You have reached your monthly limit" }, { status: 429 })
@@ -80,7 +80,7 @@ export const POST = async (req: NextRequest) => {
 
     const validationResult = REQUEST_VALIDATOR.parse(requestData)
 
-    const category = user.EventCategories.find((cat) => cat.name === validationResult.category)
+    const category = user.eventCategories.find((cat) => cat.name === validationResult.category)
 
     if (!category) {
       return NextResponse.json({ message: `You don't have a category named "${validationResult.category}"` }, { status: 404 })
@@ -105,6 +105,8 @@ export const POST = async (req: NextRequest) => {
         userId: user.id,
         fields: validationResult.fields || {},
         eventCategoryId: category.id,
+        site: "defaultSite", // Add appropriate value for site
+        eventType: "VALID_EVENT_TYPE", // Replace with an actual valid EventType value
       },
     })
 

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient(); // Sørg for at denne linjen er definert før du bruker prisma
+const prisma = new PrismaClient();
 
 async function main() {
   try {

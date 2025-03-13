@@ -16,12 +16,13 @@ model User {
   discordId       String?
   plan            Plan            @default(BASIC)
   quotaLimit      Int
-  monitoredSites  String[]        // F.eks. ["facebook", "twitter", "darkweb"]
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   events          Event[]
   eventCategories EventCategory[]
   quota           Quota?
+  monitoredSites  MonitoredSite[] // ✅ Fjernet `String[]` og beholdt denne
+  SearchResult    SearchResult[]
 }
 
 model EventCategory {
@@ -45,13 +46,14 @@ model Event {
   name             String
   fields           Json
   deliveryStatus   DeliveryStatus @default(PENDING)
-  site             String         // Hvilken nettside funnet er på
+  site             String // Hvilken nettside funnet er på
   eventType        EventType
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   eventCategoryId  String?
   eventCategory    EventCategory? @relation(fields: [eventCategoryId], references: [id])
   user             User           @relation(fields: [userId], references: [id])
+  searchResults    SearchResult[]
 
   @@index([createdAt])
 }
@@ -67,9 +69,9 @@ model Quota {
 }
 
 enum Plan {
-  BASIC       // Billigste: Overvåker sosiale medier
-  PREMIUM     // Medium: Overvåker sosiale medier + nettaviser
-  ELITE       // Dyreste: Overvåker hele nettet inkl. dark web
+  BASIC // Billigste: Overvåker sosiale medier
+  PREMIUM // Medium: Overvåker sosiale medier + nettaviser
+  ELITE // Dyreste: Overvåker hele nettet inkl. dark web
 }
 
 enum DeliveryStatus {
@@ -79,6 +81,30 @@ enum DeliveryStatus {
 }
 
 enum EventType {
-  DISCOVERY   // Når noe uønsket blir funnet
-  DELETION    // Når noe er slettet
+  DISCOVERY // Når noe uønsket blir funnet
+  DELETION // Når noe er slettet
+}
+
+model MonitoredSite {
+  id        String   @id @default(cuid())
+  userId    String
+  url       String
+  platform  String // F.eks. "Twitter", "Facebook", "Google", "News"
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model SearchResult {
+  id        String   @id @default(cuid())
+  userId    String
+  query     String
+  title     String
+  url       String
+  snippet   String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  Event   Event?  @relation(fields: [eventId], references: [id])
+  eventId String?
 }

@@ -1,94 +1,93 @@
-import { db } from "@/db";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs"; // ✅ Bruker client-side autentisering
 import { DashboardPage } from "../components/dashboard-page";
-import { DashboardPageContent } from "./dasboard-page-content"; // Sikrer riktig import
+import { DashboardPageContent } from "./dasboard-page-content";
 import { CreateEventCategoryModal } from "../components/create-event-category-modal";
 import { Button } from "../components/ui/button";
-import { PlusIcon } from "lucide-react";
-import { createCheckoutSession } from "../lib/stripe";
-import { PaymentSuccessModal } from "../components/payment-success-modal";
+import { PlusIcon, RefreshCw } from "lucide-react";
+import { Input } from "../components/ui/input"; // Input for søkefelt
 
-interface PageProps {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}
+const Page = () => {
+  const { user } = useUser(); // ✅ Henter innlogget bruker fra Clerk
+  const [isCrawling, setIsCrawling] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // Brukerens søketekst
 
-const Page = async ({ searchParams }: PageProps) => {
-  console.log("Fetching authenticated user...");
-  const auth = await currentUser();
+  // 🌟 Funksjon for å starte crawlen
+  const startCrawl = async () => {
+    console.log("Sending request with userId:", user?.id);
 
-  if (!auth) {
-    console.error("No authenticated user found. Redirecting to sign-in.");
-    redirect("/sign-in");
-    return null;
-  }
-
-  console.log("Authenticated Clerk user:", auth);
-
-  try {
-    let user = await db.user.findUnique({
-      where: { externalId: auth.id },
-    });
-
-    // Hvis brukeren ikke finnes i Prisma, opprett en ny
     if (!user) {
-      console.log(`No user found in Prisma for externalId: ${auth.id}. Creating new user.`);
-
-      user = await db.user.create({
-        data: {
-          externalId: auth.id,
-          email: auth.emailAddresses[0]?.emailAddress || "",
-          quotaLimit: 100, // Standard kvote
-          plan: "BASIC", // Endret fra "FREE" til en gyldig plan
-        },
-      });
-
-      console.log(`New user created in Prisma: ${user.email}`);
+      alert("You must be logged in to start a search.");
+      return;
     }
 
-    // Håndter betalingsoppgradering
-    const intent = searchParams.intent;
-    if (intent === "upgrade") {
-      console.log("User wants to upgrade. Creating checkout session...");
-      const session = await createCheckoutSession({
-        userEmail: user.email,
-        userId: user.id,
+    try {
+      setIsCrawling(true);
+
+      const res = await fetch("/api/crawl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id, // ✅ Bruker riktig ID fra Clerk!
+          query: searchQuery || "Jon Almaas", // ✅ Bruk inputfelt eller fallback
+        }),
       });
 
-      if (session.url) {
-        console.log(`Redirecting user to payment page: ${session.url}`);
-        redirect(session.url);
+      const data = await res.json();
+      setIsCrawling(false);
+
+      if (!res.ok) {
+        alert(`Error: ${data.error}`);
+        return;
       }
+
+      alert("Crawling started successfully!");
+    } catch (error) {
+      console.error("Error starting crawl:", error);
+      alert("Something went wrong!");
+      setIsCrawling(false);
     }
+  };
 
-    const success = searchParams.success;
-
-    return (
-      <>
-        {success ? <PaymentSuccessModal /> : null}
-
-        <DashboardPage
-          cta={
+  return (
+    <>
+      <DashboardPage
+        cta={
+          <div className="flex flex-col gap-4">
             <CreateEventCategoryModal>
               <Button className="w-full sm:w-fit">
                 <PlusIcon className="size-4 mr-2" />
                 Add Category
               </Button>
             </CreateEventCategoryModal>
-          }
-          title="Dashboard"
-        >
-          <DashboardPageContent />
-        </DashboardPage>
-      </>
-    );
-  } catch (error) {
-    console.error("Error fetching user from Prisma:", error);
-    redirect("/sign-in");
-    return null;
-  }
+
+            {/* 🌟 Inputfelt for søk */}
+            <Input
+              placeholder="Hva vil du overvåke?"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full sm:w-96 px-4 py-2 border rounded-md"
+            />
+
+            {/* 🌟 Knapp for å starte crawlen */}
+            <Button
+              onClick={startCrawl}
+              className="w-full sm:w-fit bg-brand-600 text-white"
+              disabled={isCrawling}
+            >
+              <RefreshCw className={`size-4 mr-2 ${isCrawling ? "animate-spin" : ""}`} />
+              {isCrawling ? "Running..." : "Run Web Crawler"}
+            </Button>
+          </div>
+        }
+        title="Dashboard"
+      >
+        <DashboardPageContent />
+      </DashboardPage>
+    </>
+  );
 };
 
 export default Page;
